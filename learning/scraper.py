@@ -1,20 +1,19 @@
 import scrapy
 
 class BrickSetSpider(scrapy.Spider):
-    name = 'brick_spider'
-    start_urls = ['http://brickset.com/sets/year-2016']
+    name = "brickset_spider"
+    start_urls = ['https://hust.edu.vn/']
 
     def parse(self, response):
-        SET_SELECTOR = '.set'
+        SET_SELECTOR = '#menu' 
         for brickset in response.css(SET_SELECTOR):
 
-            NAME_SELECTOR = 'h1 a ::text'
-            PIECES_SELECTOR = './/dl[dt/text() = "Pieces"]/dd/a/text()'
-            MINIFIGS_SELECTOR = './/dl[dt/text() = "Minifigs"]/dd[2]/a/text()'
-            IMAGE_SELECTOR = 'img ::attr(src)'
+            NAME_SELECTOR = 'li ::text' 
             yield {
-                'name': brickset.css(NAME_SELECTOR).extract_first(),
-                'pieces': brickset.xpath(PIECES_SELECTOR).extract_first(),
-                'minifigs': brickset.xpath(MINIFIGS_SELECTOR).extract_first(),
-                'image': brickset.css(IMAGE_SELECTOR).extract_first(),
+                'name': brickset.css(NAME_SELECTOR).extract(),
             }
+
+# . class
+# # id
+# 
+
